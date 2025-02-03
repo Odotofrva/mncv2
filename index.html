@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>HOME - MENOCLONE</title>
+    <style>
+        body {
+            background-color: black; /* Set background to black */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Set canvas behind other elements */
+        }
+        main {
+            position: relative; /* Positioning context for absolute elements */
+            z-index: 1; /* Ensure main content is above the canvas */
+        }
+    </style>
+</head>
+<body>
+
+    <main class="max-w-7xl mx-auto p-4 flex flex-col items-center">
+        <div class="w-full max-w-3xl mb-8">
+            <img src="Logo trans white.png" alt="">
+        </div>
+    </main>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <div id="image-container" class="fade">
+        <script>
+            // Particle system setup
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.03, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            const geometry = new THREE.BufferGeometry();
+            const count = 10000; // Number of particles
+            const positions = new Float32Array(count * 3); // x, y, z for each particle
+
+            for (let i = 0; i < count; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 20; // X position
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 20; // Y position
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 20; // Z position
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const material = new THREE.PointsMaterial({ color: 0xffffff, size: 0.02 });
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particles.rotation.x += 0.000;
+                particles.rotation.y += 0.003;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Interactive particle movement
+        function onMouseMove(event) {
+            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            camera.position.x = mouseX * 5; // Adjust the multiplier for sensitivity
+            camera.position.y = mouseY * 5; // Adjust the multiplier for sensitivity
+            camera.lookAt(scene.position);
+        }
+
+        function onTouchMove(event) {
+            const touchX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+            const touchY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+            camera.position.x = touchX * 5; // Adjust the multiplier for sensitivity
+            camera.position.y = touchY * 5; // Adjust the multiplier for sensitivity
+            camera.lookAt(scene.position);
+        }
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('touchmove', onTouchMove);
+
+        // Transition to main2.html after 5 seconds
+        setTimeout(() => {
+            window.location.href = 'main.html';
+        }, 10000);
+    </script>
+    
+</div>
+
+
+
+
+
+</body>
+</html>
