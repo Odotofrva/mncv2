@@ -1,3 +1,13 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
