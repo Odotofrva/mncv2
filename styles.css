@@ -1,0 +1,39 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    width: 80vmin; /* Responsive grid size */
+    height: 80vmin; /* Responsive grid size */
+    max-width: 500px; /* Maximum size */
+    max-height: 500px; /* Maximum size */
+}
+
+.pad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+    user-select: none; /* Prevent text selection */
+    position: relative; /* Required for icon positioning */
+}
+
+.pad:hover {
+    background-color: #024b35;
+}
+
+.pad:active {
+    background-color: #00e8f0;
+}
+
+.icon {
+    position: absolute; /* Position the icon absolutely within the pad */
+    bottom: 10px; /* Distance from the bottom */
+    right: 10px; /* Distance from the right */
+    font-size: 1rem; /* Icon size */
+    color: rgba(255, 255, 255, 0.7); /* Icon color with transparency */
+}
